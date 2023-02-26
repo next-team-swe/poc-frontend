@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../pages/light_page.dart';
+import '../app/light.dart';
 
 class LightListItem extends StatelessWidget {
   const LightListItem({super.key, required this.snapshot, required this.index});
@@ -13,10 +14,12 @@ class LightListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Light light = Light.fromSnapshot(snapshot, index);
+
     return
     GestureDetector(
       onTap:  () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => LightPage(/* light */)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => LightPage(light: light)));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
