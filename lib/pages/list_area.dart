@@ -1,58 +1,42 @@
 import 'package:flutter/material.dart';
+import '../app/area.dart';
 
-class area {
-  final int id;
-  final String name;
-  final String imageUrl;
-
-  area({required this.id, required this.name, required this.imageUrl});
-}
-
-class Areas extends StatefulWidget {
-  const Areas({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+class AreasPage extends StatefulWidget {
+  const AreasPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<Areas> createState() => _Areas();
+  State<AreasPage> createState() => _Areas();
 }
 
-class _Areas extends State<Areas> {
-  final List<area> items = [
-    area(
+class _Areas extends State<AreasPage> {
+  final List<Area> items = [
+    Area(
       id: 1,
       name: 'Padova prato',
       imageUrl:
           'https://images.placesonline.com/photos/424012309201110_Padova_722344240.jpg?quality=80&w=700',
     ),
-    area(
+    Area(
       id: 2,
       name: 'New York centro',
       imageUrl:
           'https://images.placesonline.com/photos/424010310171223_NewYork_152295734.jpg?quality=80&w=700',
     ),
-    area(
+    Area(
       id: 3,
       name: 'Roma centro storico',
       imageUrl:
           'https://a.cdn-hotels.com/gdcs/production40/d811/5e89ad90-8f10-11e8-b6b0-0242ac110007.jpg?impolicy=fcrop&w=1600&h=1066&q=medium',
     ),
-    area(
+    Area(
       id: 4,
       name: 'Padova corso stati uniti',
       imageUrl:
           'https://citynews-padovaoggi.stgy.ovh/~media/horizontal-mid/3880745918562/corso-stati-uniti-via-lisbona-2.jpg',
     ),
-    area(
+    Area(
       id: 5,
       name: 'Venezia P.zz Roma',
       imageUrl:
@@ -64,11 +48,10 @@ class _Areas extends State<Areas> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(
-              child: new Text(widget.title, textAlign: TextAlign.center)),
+          title: Center(child: Text(widget.title, textAlign: TextAlign.center)),
         ),
         body: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: Column(
                 // set the crossAxisAlignment property to center,
@@ -104,7 +87,7 @@ class _Areas extends State<Areas> {
                                   borderRadius: BorderRadius.circular(10),
                                   gradient: LinearGradient(
                                     begin: Alignment.bottomCenter,
-                                    end: Alignment(0, -0.2),
+                                    end: const Alignment(0, -0.2),
                                     colors: [
                                       Colors.black.withOpacity(0.5),
                                       Colors.transparent,
@@ -117,12 +100,12 @@ class _Areas extends State<Areas> {
                                 left: 0,
                                 right: 0,
                                 child: Container(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 20),
                                     child: Align(
                                         alignment: Alignment.center,
                                         child: Text(item.name,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
