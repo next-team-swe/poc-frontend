@@ -8,6 +8,8 @@ class TextContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: const BoxConstraints(maxWidth: 800),
+      width: MediaQuery.of(context).size.width * 0.85,
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
