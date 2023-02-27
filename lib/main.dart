@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:poc_frontend/pages/light_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'app/light.dart';
 
 Future<void> main() async {
   await Supabase.initialize(
@@ -69,7 +72,27 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Container(),
+      body: Center(
+        child: OutlinedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LightPage(
+                  light: Light(
+                    id: 1,
+                    name: "Light 1",
+                    brightness: 50,
+                    area: 1,
+                    state: true,
+                  ),
+                ),
+              ),
+            );
+          },
+          child: const Text("Go to light page"),
+        ),
+      ),
     );
   }
 }

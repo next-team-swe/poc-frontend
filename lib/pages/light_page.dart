@@ -68,14 +68,15 @@ class _LightPageState extends State<LightPage> {
                           await Supabase.instance.client
                               .from("light")
                               .update({"brightness": value.toInt()}).eq(
-                              "id", snapshot.data[0]["id"]);
+                                  "id", snapshot.data[0]["id"]);
                         },
                         innerWidget: (double value) => IconButton(
                           icon: Icon(snapshot.data[0]["state"]
                               ? Icons.lightbulb
                               : Icons.lightbulb_outline),
-                          tooltip:
-                          snapshot.data[0]["state"] ? "Turn off" : "Turn on",
+                          tooltip: snapshot.data[0]["state"]
+                              ? "Turn off"
+                              : "Turn on",
                           color: snapshot.data[0]["state"]
                               ? Colors.yellow.shade700
                               : Colors.grey,
@@ -83,8 +84,9 @@ class _LightPageState extends State<LightPage> {
                           onPressed: () async {
                             await Supabase.instance.client
                                 .from("light")
-                                .update({"state": !snapshot.data[0]["state"]}).eq(
-                                "id", snapshot.data[0]["id"]);
+                                .update({
+                              "state": !snapshot.data[0]["state"]
+                            }).eq("id", snapshot.data[0]["id"]);
                             setState(() {});
                           },
                         ),
@@ -119,20 +121,12 @@ class _LightPageState extends State<LightPage> {
                         ],
                       ),
                     ),
-                    TextContainer(
-                      child: FutureBuilder(
-                        future: Supabase.instance.client
-                            .from("area")
-                            .select("name")
-                            .eq("id", snapshot.data[0]["area"]),
-                        builder: (context, AsyncSnapshot snapshot) {
-                          if (snapshot.hasData) {
-                            return Text("Area name: ${snapshot.data[0]["name"]}");
-                          } else {
-                            return const Text("Area name: Loading...");
-                          }
-                        },
-                      ),
+                    FutureBuilder(
+                      future: Supabase.instance.client
+                          .from("area")
+                          .select("name")
+                          .eq("id", snapshot.data[0]["area"]),
+                      builder: _areaContainerBuilder,
                     ),
                   ],
                 ),
@@ -156,4 +150,60 @@ class _LightPageState extends State<LightPage> {
       },
     );
   }
+
+  Widget _areaContainerBuilder(BuildContext context, AsyncSnapshot snapshot) {
+    final Widget child;
+    if (snapshot.hasData) {
+      child = _areaContainer(snapshot.data[0]["name"], true, context);
+    } else {
+      child = _areaContainer("Loading...", false, context);
+    }
+
+    return TextContainer(
+      child: child,
+    );
+  }
+
+  Widget _areaContainer(String name, bool isEditable, BuildContext context) =>
+      FutureBuilder(
+        future: Supabase.instance.client.from("area").select(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data != null) {
+            final List<dynamic> areas = snapshot.data as List<dynamic>;
+
+            return PopupMenuButton(
+              itemBuilder: (context) {
+                return List.generate(
+                  areas.length,
+                      (index) => PopupMenuItem(
+                    value: areas[index]["id"],
+                    child: Text(areas[index]["name"]),
+                  ),
+                );
+              },
+              onSelected: _areaSelected,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Area: $name"),
+                  const Icon(Icons.edit),
+                ],
+              ),
+            );
+          } else {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Area: $name"),
+                const CircularProgressIndicator(),
+              ],
+            );
+          }
+        },
+      );
+
+  void _areaSelected(dynamic areaId) async {
+    await Supabase.instance.client.from("light").update({'area':areaId}).match({'id': widget.light.id});
+  }
+
 }
