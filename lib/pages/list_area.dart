@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:poc_frontend/pages/list_light_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../app/area.dart';
 
 class AreasPage extends StatefulWidget {
-  const AreasPage({Key? key, required this.title}) : super(key: key);
+  const AreasPage({Key? key}) : super(key: key);
 
-  final String title;
+  final String title = 'Lumus Minima';
 
   @override
   State<AreasPage> createState() => _Areas();
 }
 
 class _Areas extends State<AreasPage> {
+  final arealist = Supabase.instance.client.from('area').select();
+
   final List<Area> items = [
     Area(
       id: 1,
@@ -50,72 +54,83 @@ class _Areas extends State<AreasPage> {
         appBar: AppBar(
           title: Center(child: Text(widget.title, textAlign: TextAlign.center)),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Column(
-                // set the crossAxisAlignment property to center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                // set the crossAxisAlignment property to center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Wrap(
-                    spacing: 10,
-                    runSpacing: 20,
-                    children: items.map((item) {
-                      return GestureDetector(
-                          onTap: () {
-                            print(item.id);
-                          },
-                          child: Stack(
-                            children: [
-                              Container(
-                                width: 150,
-                                height: 150,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(item.imageUrl),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              Container(
-                                width: 150,
-                                height: 150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.bottomCenter,
-                                    end: const Alignment(0, -0.2),
-                                    colors: [
-                                      Colors.black.withOpacity(0.5),
-                                      Colors.transparent,
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 20),
-                                    child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(item.name,
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            )))),
-                              ),
-                            ],
-                          ));
-                    }).toList(),
-                  )
-                ]),
+        body: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: SingleChildScrollView(
+                  child: Column(
+                      // set the crossAxisAlignment property to center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      // set the crossAxisAlignment property to center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Wrap(
+                          spacing: 10,
+                          runSpacing: 20,
+                          children: items.map((item) {
+                            return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return ListLightPage(areaId: item.id);
+                                    })
+                                  );
+                                },
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      width: 150,
+                                      height: 150,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(item.imageUrl),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 150,
+                                      height: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        gradient: LinearGradient(
+                                          begin: Alignment.bottomCenter,
+                                          end: const Alignment(0, -0.2),
+                                          colors: [
+                                            Colors.black.withOpacity(0.5),
+                                            Colors.transparent,
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      left: 0,
+                                      right: 0,
+                                      child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10, horizontal: 20),
+                                          child: Align(
+                                              alignment: Alignment.center,
+                                              child: Text(item.name,
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  )))),
+                                    ),
+                                  ],
+                                ));
+                          }).toList(),
+                        )
+                      ]),
+                ),
+              ),
+            ],
           ),
         ));
   }
