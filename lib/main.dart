@@ -72,27 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        child: OutlinedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LightPage(
-                  light: Light(
-                    id: 1,
-                    name: "Light 1",
-                    brightness: 50,
-                    area: 1,
-                    state: true,
-                  ),
-                ),
-              ),
-            );
-          },
-          child: const Text("Go to light page"),
-        ),
-      ),
+      body: Container(),
     );
   }
 }

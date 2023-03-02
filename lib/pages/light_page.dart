@@ -20,7 +20,6 @@ class LightPage extends StatefulWidget {
 }
 
 class _LightPageState extends State<LightPage> {
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -175,7 +174,7 @@ class _LightPageState extends State<LightPage> {
               itemBuilder: (context) {
                 return List.generate(
                   areas.length,
-                      (index) => PopupMenuItem(
+                  (index) => PopupMenuItem(
                     value: areas[index]["id"],
                     child: Text(areas[index]["name"]),
                   ),
@@ -203,7 +202,8 @@ class _LightPageState extends State<LightPage> {
       );
 
   void _areaSelected(dynamic areaId) async {
-    await Supabase.instance.client.from("light").update({'area':areaId}).match({'id': widget.light.id});
+    await Supabase.instance.client
+        .from("light")
+        .update({'area': areaId}).match({'id': widget.light.id});
   }
-
 }
