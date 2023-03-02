@@ -15,7 +15,7 @@ class ListLightPage extends StatelessWidget{
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("piselo", style: TextStyle(fontFamily: 'norwester')),
+        title: Text("area $areaId", style: TextStyle(fontFamily: 'norwester')),
       ),
       body: StreamBuilder<List<Map<String, dynamic>>>(
         stream: lightStream,
