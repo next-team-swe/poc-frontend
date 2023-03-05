@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../components/list_item.dart';
+import '../components/add_light_popup.dart';
 
 class ListLightPage extends StatelessWidget{
   const ListLightPage({super.key, required this.areaId});
@@ -33,7 +34,13 @@ class ListLightPage extends StatelessWidget{
           }
         },
       ),
-      floatingActionButton: null,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          addLightPopup(context, areaId);
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.add),
+      )
     );
   }
 }
