@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:poc_frontend/pages/light_page.dart';
+import 'package:poc_frontend/pages/list_area.dart';
+import 'package:poc_frontend/components/list_item.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app/light.dart';
+import 'pages/list_light_page.dart';
 
 Future<void> main() async {
   await Supabase.initialize(
@@ -66,13 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Container(),
-    );
+    return const AreasPage();
   }
 }
