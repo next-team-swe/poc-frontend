@@ -44,18 +44,12 @@ class _LightPageState extends State<LightPage> {
                         max: 100,
                         appearance: CircularSliderAppearance(
                           customColors: CustomSliderColors(
-                            trackColor: Colors.green.shade100,
-                            progressBarColors: [
-                              Colors.lime,
-                              Colors.lime.shade600,
-                              Colors.lightGreen,
-                              Colors.green.shade300
-                            ],
-                            gradientStartAngle: 0,
-                            gradientEndAngle: 180,
-                            dynamicGradient: true,
-                            dotColor: Colors.grey.shade100,
-                          ),
+                            dotColor: Colors.white,
+                            trackColor: Colors.green.shade300,
+                            progressBarColor: Colors.transparent,
+                            shadowColor: Colors.green,
+                            shadowStep: 15.0,
+                            shadowMaxOpacity: 0.4),
                           customWidths: CustomSliderWidths(
                             progressBarWidth: 15,
                             handlerSize: 10,
