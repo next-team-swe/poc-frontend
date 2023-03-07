@@ -7,7 +7,7 @@ import 'add_area_popup.dart';
 class AreasPage extends StatefulWidget {
   const AreasPage({Key? key}) : super(key: key);
 
-  final String title = 'Lumus Minima';
+  final String title = 'Lumos Minima';
 
   @override
   State<AreasPage> createState() => _Areas();
