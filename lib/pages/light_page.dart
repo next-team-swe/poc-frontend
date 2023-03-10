@@ -86,6 +86,9 @@ class _LightPageState extends State<LightPage> {
                       ),
                     ),
                     TextContainer(
+                        child: Text("IP Address: ${snapshot.data[0]["ip_address"]}"),
+                    ),
+                    TextContainer(
                       child: Text("ID: ${snapshot.data[0]["id"].toString()}"),
                     ),
                     TextContainer(
