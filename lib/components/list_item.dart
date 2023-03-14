@@ -38,7 +38,7 @@ class LightListItem extends StatelessWidget {
               icon: Icon(snapshot.data![index]['state'] ? Icons.lightbulb : Icons.lightbulb_outline, color: snapshot.data![index]['state'] ? Colors.yellow[700] : Colors.grey),
             ),
             Text(snapshot.data![index]['name'].toString()),
-            Icon(Icons.circle, color: Random().nextBool() ? Colors.green : Colors.red),
+            Icon(Icons.circle, color: snapshot.data![index]['connected'] ? Colors.green : Colors.red),
           ]
         ),
       ),
